@@ -12,13 +12,13 @@ export function LoginForm() {
   // State variables for login form
   const [email, setEmail] = useState(''); // Stores the email entered in the login form
   const [pass, setPass] = useState(''); // Stores the password entered in the login form
-  const [loginError, setLoginError] = useState(''); // Stores any error message occurred during the login process
+  const [loginError, setLoginError] = useState('Minden mező kitöltése kötelező'); // Stores any error message occurred during the login process
 
   // State variables for registration form
   const [remail, setREmail] = useState(''); // Stores the email entered in the registration form
   const [rpass, setRPass] = useState(''); // Stores the password entered in the registration form
   const [rusername, setRUsername] = useState(''); // Stores the username entered in the registration form
-  const [registerError, setRegisterError] = useState(''); // Stores any error message occurred during the registration
+  const [registerError, setRegisterError] = useState('Minden mező kitöltése kötelező'); // Stores any error message occurred during the registration
 
   // Accessing the API context for login and registration functionality
   const api = useContext(ApiContext);
@@ -81,16 +81,17 @@ export function LoginForm() {
         {/* Login form */}
         <div className="login">
           <form onSubmit={login}>
-            <label htmlFor="chk" aria-hidden="true">Login</label>
+            <label htmlFor="chk">Login</label>
             <input id="input" type="text" placeholder="Email" value={email} onChange={e => setEmail(e.currentTarget.value)} />
             <input id="input" type="password" placeholder="Password" value={pass} onChange={e => setPass(e.currentTarget.value)} />
             <input id="button" type="submit" value='Login' onClick={AlertL} />
           </form>
         </div>
-        {/**
-         * Registration form
-         * Regisztráció működött és működik is, a css-ben nem jó az animáció, nem ugrik fel a regisztrációs űrlap
-         */}
+
+        {/* Checkbox to toggle registration form */}
+        <input type="checkbox" id="chk" aria-hidden="true" />
+
+        {/* Registration form */}
         <div className="signup">
           <form onSubmit={register}>
             <label htmlFor="chk" aria-hidden="true">Sign Up</label>

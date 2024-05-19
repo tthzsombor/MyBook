@@ -16,9 +16,11 @@ export function AdminProfile() {
     // State variables
     const [books, setBooks] = useState<Book[]>([]); // Array to store books
     const [newBook, setNewBook] = useState<Partial<Book>>({}); // New book object
+    const [ujcim, setUjcim] = useState('');
+    const [ujkiadas, setUjkiadas] = useState('');
+    const [ujiro, setUjiro] = useState('');
     const [selectedBook, setSelectedBook] = useState<Book | null>(null); // Selected book for update
     const [errorMessage, setErrorMessage] = useState<string>(''); // Error message state
-    const [bookname, setBookname] = useState<string>(''); // State for the book title input
 
     // Function to fetch books from the server
     async function loadAllBooks() {
@@ -36,13 +38,15 @@ export function AdminProfile() {
 
     // Function to add a new book
     const addBook = async () => {
+        const data = [ujcim, ujiro, ujkiadas];
         try {
-            const response = await fetch('http://localhost:3000/books', {
+            const response = await fetch(`http://localhost:3000/books/${ujcim}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
-                body: JSON.stringify(newBook),
+                body: JSON.stringify(data),
             });
             if (!response.ok) {
                 throw new Error('Failed to add book');
@@ -72,7 +76,7 @@ export function AdminProfile() {
     // Function to update a book
     const updateBook = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/books/${selectedBook?.id}`, {
+            const response = await fetch(`http://localhost:3000/books/${ujcim}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -103,20 +107,20 @@ export function AdminProfile() {
                     <div className="admin-inputs">
                         <input
                             type="text"
-                            value={newBook.bookname || ''}
-                            onChange={(e) => setNewBook({ ...newBook, bookname: e.target.value })}
+                            value={ujcim}
+                            onChange={e => setUjcim(e.currentTarget.value)}
                             placeholder="Title"
                         />
                         <input
                             type="number"
-                            value={newBook.release || ''}
-                            onChange={(e) => setNewBook({ ...newBook, release: e.target.value })}
+                            value={ujkiadas}
+                            onChange={e => setUjkiadas(e.currentTarget.value)}
                             placeholder="Release Year"
                         />
                         <input
                             type="text"
-                            value={newBook.writer || ''}
-                            onChange={(e) => setNewBook({ ...newBook, writer: e.target.value })}
+                            value={ujiro}
+                            onChange={e => setUjiro(e.currentTarget.value)}
                             placeholder="Author"
                         />
                         <button onClick={addBook} className="admin-button">Add Book</button>

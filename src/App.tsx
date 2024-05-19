@@ -40,7 +40,7 @@ function App() {
               </LoggedIn>
 
               {/* Renders error message if API context has an error */}
-              {api.error ? <p>{api.error}</p> : null}
+              {api.error ? <p style={{color:'red', textAlign:'center'}}>{api.error}</p> : null}
 
               {/* Renders UserProfile component for the current user */}
               <LoggedIn>
